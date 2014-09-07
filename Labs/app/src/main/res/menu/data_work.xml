@@ -1,9 +1,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.admin.labs.DataWorkActivity" >
-    <item android:id="@+id/action_example"
-        android:title="@string/action_example"
-        android:showAsAction="withText|ifRoom" />
+    tools:context="com.example.admin.labs.LabsActivity" >
+
+    <item
+        android:title="Data Work Type"
+        android:id="@+id/menu_spinner"
+        android:showAsAction="ifRoom"
+        android:actionLayout="@layout/action_sort"  />
+
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:orderInCategory="100"

@@ -5,10 +5,7 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,11 +13,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
+import android.widget.Spinner;
+
+import com.example.admin.labs.fragments.DemoFragment;
+import com.example.admin.labs.fragments.SensorsFragment;
+
+import java.util.ArrayList;
 
 
-public class DataWorkActivity extends Activity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+public class LabsActivity extends Activity
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, ActionBar.OnNavigationListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -31,6 +33,7 @@ public class DataWorkActivity extends Activity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,15 +48,32 @@ public class DataWorkActivity extends Activity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+
     }
+
+
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+                .replace(R.id.container, getFragmentByPosition(position))
                 .commit();
+    }
+
+    private Fragment getFragmentByPosition(int position) {
+        switch (position){
+            case 0:
+                return DemoFragment.newInstance(position + 1);
+            case 1:
+                return PlaceholderFragment.newInstance(position + 1);
+            case 2:
+                return SensorsFragment.newInstance(position + 1);
+            default:
+                return null;
+        }
     }
 
     public void onSectionAttached(int number) {
@@ -88,7 +108,23 @@ public class DataWorkActivity extends Activity
             restoreActionBar();
             return true;
         }
-        return super.onCreateOptionsMenu(menu);
+
+        if (super.onCreateOptionsMenu(menu))
+        {
+//            this.menu = menu;
+//
+//            MenuItem item = menu.findItem(R.id.menu_spinner);
+//            Spinner spinner = (Spinner)item.getActionView();
+//
+//            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+//                    R.array.data_work_array, android.R.layout.simple_spinner_item);
+//            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//            spinner.setAdapter(adapter);
+//            spinner.setSelection(0);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -101,6 +137,11 @@ public class DataWorkActivity extends Activity
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(int i, long l) {
+        return false;
     }
 
     /**
@@ -138,7 +179,7 @@ public class DataWorkActivity extends Activity
         @Override
         public void onAttach(Activity activity) {
             super.onAttach(activity);
-            ((DataWorkActivity) activity).onSectionAttached(
+            ((LabsActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }
