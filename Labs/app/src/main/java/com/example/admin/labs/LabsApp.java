@@ -2,26 +2,24 @@ package com.example.admin.labs;
 
 import android.app.Application;
 import android.content.res.Configuration;
-import android.os.Debug;
 import android.util.Log;
 
 /**
- * Created by admin on 06.09.2014.
+ * Created by admin on 11.09.2014.
  */
-public class LabsApplication extends Application {
-
+public class LabsApp extends Application {
     public static String LABS_TAG = "LABS_TAG";
-
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        Log.i(LABS_TAG,"config changed");
+        Log.i(LABS_TAG, "config changed");
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.i(LABS_TAG,"app created");
+        Log.i(LABS_TAG, "app created");
+
     }
 
     @Override

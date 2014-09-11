@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="data_work_array">
-        <item>True SQL</item>
-        <item>SQLHelper</item>
-        <item>Custom data source</item>
-    </string-array>
-</resources>

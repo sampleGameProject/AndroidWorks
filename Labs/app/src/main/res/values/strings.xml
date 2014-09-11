@@ -2,16 +2,33 @@
 <resources>
 
     <string name="app_name">Лабораторные работы</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_data_work">DataWorkActivity</string>
-    <string name="title_section1">Демо</string>
-    <string name="title_section2">Работа с данными</string>
-    <string name="title_section3">Работа с датчиками</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
-    <string name="title_activity_start">StartActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_section1">ИНТЕРФЕЙС</string>
+    <string name="sub_title_section1">Создание содержимого экрана вручную и из Layout</string>
+    <string name="title_section2">РАБОТА С ДАННЫМИ</string>
+    <string name="sub_title_section2">Демонстрация работы с Pure SQL, SQLHelper и Content Provider</string>
+    <string name="title_section3">РАБОТА С ДАТЧИКАМИ</string>
+    <string name="sub_title_section3">Демонстрация работы с датчиков температуры, освешенности, записи звука и видео</string>
+
+    <string-array name="interface_array">
+        <item>Создание интерфейса вручную</item>
+        <item>Создание интерфейса из layout</item>
+    </string-array>
+    <string-array name="data_work_array">
+        <item>Pure SQL</item>
+        <item>SQLHelper</item>
+        <item>Custom Content Provider</item>
+    </string-array>
+    <string-array name="sensors_work_array">
+        <item>Датчик температуры</item>
+        <item>Датчик освещенности</item>
+        <item>Запись звука</item>
+        <item>Запись видео</item>
+    </string-array>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

@@ -5,7 +5,12 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
+import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,16 +18,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
+import android.widget.ListView;
+import android.widget.TextView;
 
-import com.example.admin.labs.fragments.DemoFragment;
-import com.example.admin.labs.fragments.SensorsFragment;
+import com.example.admin.labs.entry_adapter.EntryAdapter;
+import com.example.admin.labs.entry_adapter.EntryItem;
+import com.example.admin.labs.entry_adapter.Item;
+import com.example.admin.labs.entry_adapter.SectionItem;
+import com.example.admin.labs.fragments.DemoInterfaceFragment;
+import com.example.admin.labs.models.SectionsManager;
 
 import java.util.ArrayList;
 
 
-public class LabsActivity extends Activity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, ActionBar.OnNavigationListener {
+public class MainActivity extends Activity
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -33,12 +43,14 @@ public class LabsActivity extends Activity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
-    private Menu menu;
+    private SectionsManager sectionsManager;
+
+    public static final String ARG_SECTION_NUMBER = "section_number";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_data_work);
+        setContentView(R.layout.activity_main);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -48,46 +60,28 @@ public class LabsActivity extends Activity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
-
-
-    }
-
-
+        sectionsManager = new SectionsManager(this);
+  }
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
+        Log.i("LABS_TAG","Select item at " + Integer.toString(position));
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, getFragmentByPosition(position))
+                .replace(R.id.container, getFragment(position))
                 .commit();
     }
 
-    private Fragment getFragmentByPosition(int position) {
-        switch (position){
-            case 0:
-                return DemoFragment.newInstance(position + 1);
-            case 1:
-                return PlaceholderFragment.newInstance(position + 1);
-            case 2:
-                return SensorsFragment.newInstance(position + 1);
-            default:
-                return null;
-        }
+    private Fragment getFragment(int position) {
+        if (position == 1)
+            return DemoInterfaceFragment.newInstance(position);
+        else
+            return PlaceholderFragment.newInstance(position);
     }
 
     public void onSectionAttached(int number) {
-        switch (number) {
-            case 1:
-                mTitle = getString(R.string.title_section1);
-                break;
-            case 2:
-                mTitle = getString(R.string.title_section2);
-                break;
-            case 3:
-                mTitle = getString(R.string.title_section3);
-                break;
-        }
+        mTitle = sectionsManager.getItemTitle(number);
     }
 
     public void restoreActionBar() {
@@ -97,34 +91,17 @@ public class LabsActivity extends Activity
         actionBar.setTitle(mTitle);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
             // Only show items in the action bar relevant to this screen
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.
-            getMenuInflater().inflate(R.menu.data_work, menu);
+            getMenuInflater().inflate(R.menu.main, menu);
             restoreActionBar();
             return true;
         }
-
-        if (super.onCreateOptionsMenu(menu))
-        {
-//            this.menu = menu;
-//
-//            MenuItem item = menu.findItem(R.id.menu_spinner);
-//            Spinner spinner = (Spinner)item.getActionView();
-//
-//            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-//                    R.array.data_work_array, android.R.layout.simple_spinner_item);
-//            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//
-//            spinner.setAdapter(adapter);
-//            spinner.setSelection(0);
-            return true;
-        }
-        return false;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -139,11 +116,6 @@ public class LabsActivity extends Activity
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public boolean onNavigationItemSelected(int i, long l) {
-        return false;
-    }
-
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -152,7 +124,6 @@ public class LabsActivity extends Activity
          * The fragment argument representing the section number for this
          * fragment.
          */
-        private static final String ARG_SECTION_NUMBER = "section_number";
 
         /**
          * Returns a new instance of this fragment for the given section
@@ -172,14 +143,14 @@ public class LabsActivity extends Activity
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_data_work, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             return rootView;
         }
 
         @Override
         public void onAttach(Activity activity) {
             super.onAttach(activity);
-            ((LabsActivity) activity).onSectionAttached(
+            ((MainActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }
