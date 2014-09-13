@@ -30,5 +30,8 @@
     </string-array>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_project">Добавить проект</string>
+    <string name="project_name_title">Название</string>
+    <string name="project_about_title">Описание проекта</string>
 
 </resources>

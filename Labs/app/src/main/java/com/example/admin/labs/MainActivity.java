@@ -26,6 +26,8 @@ import com.example.admin.labs.entry_adapter.EntryItem;
 import com.example.admin.labs.entry_adapter.Item;
 import com.example.admin.labs.entry_adapter.SectionItem;
 import com.example.admin.labs.fragments.DemoInterfaceFragment;
+import com.example.admin.labs.fragments.ProjectsListFragment;
+import com.example.admin.labs.fragments.SimpleFragment;
 import com.example.admin.labs.models.SectionsManager;
 
 import java.util.ArrayList;
@@ -76,6 +78,10 @@ public class MainActivity extends Activity
     private Fragment getFragment(int position) {
         if (position == 1)
             return DemoInterfaceFragment.newInstance(position);
+        if (position == 2)
+            return SimpleFragment.newInstance(position);
+        if (position == 5)
+            return ProjectsListFragment.newInstance(position);
         else
             return PlaceholderFragment.newInstance(position);
     }
