@@ -29,9 +29,21 @@
         <item>Запись видео</item>
     </string-array>
 
+
+
+    <string-array name="projects_context_menu">
+        <item>Редактировать</item>
+        <item>Удалить</item>
+    </string-array>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_project">Добавить проект</string>
     <string name="project_name_title">Название</string>
     <string name="project_about_title">Описание проекта</string>
+    <string name="cancelTitle">Отмена</string>
+    <string name="project_start_title">Старт проекта</string>
+    <string name="project_deadline_title">Дедлайн</string>
+    <string name="project_finish_title">Окончание проекта</string>
+
 
 </resources>

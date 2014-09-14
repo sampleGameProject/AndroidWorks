@@ -48,12 +48,7 @@ public class ProjectsDataSource {
     }
 
     public Project createProject(Project project){
-        ContentValues values = new ContentValues();
-        values.put(ProjectsBaseSQLiteHelper.COLUMN_NAME, project.getName());
-        values.put(ProjectsBaseSQLiteHelper.COLUMN_START, dateFormat.format(project.getStart()));
-        values.put(ProjectsBaseSQLiteHelper.COLUMN_FINISH,  dateFormat.format(project.getStart()));
-        values.put(ProjectsBaseSQLiteHelper.COLUMN_DEADLINE,  dateFormat.format(project.getStart()));
-        values.put(ProjectsBaseSQLiteHelper.COLUMN_ABOUT, project.getAbout());
+        ContentValues values = projectToValues(project);
 
         long insertId = database.insert(ProjectsBaseSQLiteHelper.TABLE_PROJECTS, null,
                 values);
@@ -73,9 +68,9 @@ public class ProjectsDataSource {
 
 
 
-    public void deleteComment(Project project) {
+    public void deleteProject(Project project) {
         long id = project.getId();
-        System.out.println("Comment deleted with id: " + id);
+        System.out.println("Project deleted with id: " + id);
         database.delete(ProjectsBaseSQLiteHelper.TABLE_PROJECTS, ProjectsBaseSQLiteHelper.COLUMN_ID
                 + " = " + id, null);
     }
@@ -108,4 +103,20 @@ public class ProjectsDataSource {
         return project;
     }
 
+    public void update(Project project) {
+        long id = project.getId();
+
+        database.update(ProjectsBaseSQLiteHelper.TABLE_PROJECTS,projectToValues(project), ProjectsBaseSQLiteHelper.COLUMN_ID
+                + " = ?", new String[] {Long.toString(id) });
+    }
+
+    private ContentValues projectToValues(Project project){
+        ContentValues values = new ContentValues();
+        values.put(ProjectsBaseSQLiteHelper.COLUMN_NAME, project.getName());
+        values.put(ProjectsBaseSQLiteHelper.COLUMN_START, dateFormat.format(project.getStart()));
+        values.put(ProjectsBaseSQLiteHelper.COLUMN_FINISH,  dateFormat.format(project.getStart()));
+        values.put(ProjectsBaseSQLiteHelper.COLUMN_DEADLINE,  dateFormat.format(project.getStart()));
+        values.put(ProjectsBaseSQLiteHelper.COLUMN_ABOUT, project.getAbout());
+        return values;
+    }
 }

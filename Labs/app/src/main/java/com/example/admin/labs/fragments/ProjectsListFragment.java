@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -16,9 +18,12 @@ import android.widget.SimpleAdapter;
 
 import com.example.admin.labs.MainActivity;
 import com.example.admin.labs.R;
+import com.example.admin.labs.models.IRepoListener;
+import com.example.admin.labs.models.ProjectsRepo;
 import com.example.admin.labs.models.sql.data_models.Project;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -30,17 +35,18 @@ import java.util.HashMap;
  * create an instance of this fragment.
  *
  */
-public class ProjectsListFragment extends Fragment {
+public class ProjectsListFragment extends Fragment implements IRepoListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    private ListView listView;
     private OnFragmentInteractionListener mListener;
+    private ProjectsRepo projectsRepo;
+    private Project currentProject;
+
+    private static final int MENU_EDIT = 0;
+    private static final int MENU_REMOVE = 1;
+
 
     // TODO: Rename and change types and number of parameters
     public static ProjectsListFragment newInstance(int sectionNumber) {
@@ -57,10 +63,8 @@ public class ProjectsListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        projectsRepo = new ProjectsRepo(getActivity());
+        projectsRepo.open();
     }
 
     @Override
@@ -68,59 +72,8 @@ public class ProjectsListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-
         View view = inflater.inflate(R.layout.fragment_projects_list, container, false);
-        ListView listView = (ListView) view.findViewById(R.id.listView);
-
-        ArrayList<HashMap<String, String>> myArrList = new ArrayList<HashMap<String, String>>();
-        HashMap<String, String> map;
-
-        map = new HashMap<String, String>();
-        map.put("Name", "project1");
-        map.put("About", "asbdargsrgsrgsrg");
-        myArrList.add(map);
-
-        map = new HashMap<String, String>();
-        map.put("Name", "project2");
-        map.put("About", "asbdargsrgadsrgsrg");
-        myArrList.add(map);
-
-        map = new HashMap<String, String>();
-        map.put("Name", "project3");
-        map.put("About", "asbdargsrgsrgsrg45");
-        myArrList.add(map);
-
-        map = new HashMap<String, String>();
-        map.put("Name", "project3");
-        map.put("About", "asbdargsrgsrgsrg45");
-        myArrList.add(map);
-
-        map = new HashMap<String, String>();
-        map.put("Name", "project3");
-        map.put("About", "asbdargsrgsrgsrg45");
-        myArrList.add(map);
-
-        map = new HashMap<String, String>();
-        map.put("Name", "project3");
-        map.put("About", "asbdargsrgsrgsrg45");
-        myArrList.add(map);
-
-        map = new HashMap<String, String>();
-        map.put("Name", "project3");
-        map.put("About", "asbdargsrgsrgsrg45");
-        myArrList.add(map);
-
-        map = new HashMap<String, String>();
-        map.put("Name", "project3");
-        map.put("About", "asbdargsrgsrgsrg45");
-        myArrList.add(map);
-
-        SimpleAdapter adapter = new SimpleAdapter(getActivity(), myArrList, R.layout.project_list_item,
-                new String[] {"Name", "About"},
-                new int[] {R.id.project_name, R.id.project_about});
-
-        listView.setAdapter(adapter);
-        registerForContextMenu(listView);
+        listView = (ListView) view.findViewById(R.id.listView);
 
         Button newProjectButton = (Button) view.findViewById(R.id.buttonAddProject);
         newProjectButton.setOnClickListener(new View.OnClickListener() {
@@ -130,39 +83,97 @@ public class ProjectsListFragment extends Fragment {
             }
         });
 
+        projectsRepo.setListener(this);
         return view;
+    }
+
+    private void setupListAdapter(){
+
+        SimpleAdapter adapter = new SimpleAdapter(getActivity(), projectsRepo.getProjectsArrayList(), R.layout.project_list_item,
+                new String[] {"Name", "About"},
+                new int[] { R.id.project_name, R.id.project_about});
+
+        listView.setAdapter(adapter);
+        registerForContextMenu(listView);
+
     }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenu.ContextMenuInfo menuInfo) {
-//        if (v.getId()==R.id.list) {
-//            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
-//            menu.setHeaderTitle(Countries[info.position]);
-//            String[] menuItems = getResources().getStringArray(R.array.menu);
-//            for (int i = 0; i<menuItems.length; i++) {
-//                menu.add(Menu.NONE, i, i, menuItems[i]);
-//            }
-//        }
-        showProjectDialog(null);
+        if (v.getId()==R.id.listView) {
+            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+            currentProject = projectsRepo.getByIndex(info.position);
+            menu.setHeaderTitle(currentProject.getName());
+            menu.add(Menu.NONE, MENU_EDIT, MENU_EDIT, "Редактировать");
+            menu.add(Menu.NONE, MENU_REMOVE, MENU_REMOVE, "Удалить");
+        }
     }
 
-    private void showProjectDialog(Project project){
+    @Override
+    public boolean onContextItemSelected(android.view.MenuItem item){
+        switch (item.getItemId()) {
+            case MENU_EDIT:
+                showProjectDialog(currentProject);
+                return true;
+            case MENU_REMOVE:
+                projectsRepo.delete(currentProject);
+                return true;
+        }
+        return super.onContextItemSelected(item);
+    }
+
+    private void showProjectDialog(final Project project){
         final Dialog dialog = new Dialog(getActivity());
         dialog.setContentView(R.layout.project_view);
 
-        EditText name = (EditText) dialog.findViewById(R.id.editName);
-        EditText about = (EditText) dialog.findViewById(R.id.editAbout);
+        final EditText name = (EditText) dialog.findViewById(R.id.editName);
+        final EditText about = (EditText) dialog.findViewById(R.id.editAbout);
+        final EditText start = (EditText) dialog.findViewById(R.id.editStart);
+        final EditText deadline = (EditText) dialog.findViewById(R.id.editDeadline);
+        final EditText finish = (EditText) dialog.findViewById(R.id.editFinish);
+
+        final Button done = (Button) dialog.findViewById(R.id.buttonDone);
 
         if (project != null)
         {
             dialog.setTitle("Редактировать проект");
             name.setText(project.getName());
             about.setText(project.getAbout());
+            done.setText("Сохранить");
+            done.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    project.setName(name.getText().toString());
+                    project.setAbout(about.getText().toString());
+                    projectsRepo.update(project);
+                    //TODO: setup date values
+
+                    dialog.cancel();
+                }
+            });
         }
         else
         {
             dialog.setTitle("Новый проект");
+            done.setText("Добавить");
+            done.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Project newProject = new Project();
+                    newProject.setName(name.getText().toString());
+                    newProject.setAbout(about.getText().toString());
+
+                    //TODO: replace to real input values
+                    newProject.setStart(new Date());
+                    newProject.setDeadline(new Date());
+                    newProject.setFinish(new Date());
+
+                    projectsRepo.add(newProject);
+
+                    dialog.cancel();
+                }
+            });
         }
 
         dialog.show();
@@ -188,6 +199,11 @@ public class ProjectsListFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onRepoChanged() {
+        setupListAdapter();
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -202,5 +218,18 @@ public class ProjectsListFragment extends Fragment {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        projectsRepo.close();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        projectsRepo.open();
+    }
+
 
 }
