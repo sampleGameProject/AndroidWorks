@@ -2,6 +2,7 @@ package com.example.admin.labs.fragments;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -17,6 +18,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.example.admin.labs.MainActivity;
+import com.example.admin.labs.ProjectActivity;
 import com.example.admin.labs.R;
 import com.example.admin.labs.models.IRepoListener;
 import com.example.admin.labs.models.ProjectsRepo;
@@ -74,6 +76,14 @@ public class ProjectsListFragment extends Fragment implements IRepoListener{
 
         View view = inflater.inflate(R.layout.fragment_projects_list, container, false);
         listView = (ListView) view.findViewById(R.id.listView);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,long arg3) {
+                Intent intent = new Intent(getActivity(), ProjectActivity.class);
+                startActivity(intent);
+            }
+        });
 
         Button newProjectButton = (Button) view.findViewById(R.id.buttonAddProject);
         newProjectButton.setOnClickListener(new View.OnClickListener() {

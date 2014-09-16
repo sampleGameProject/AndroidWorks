@@ -25,12 +25,9 @@
     <string-array name="sensors_work_array">
         <item>Датчик температуры</item>
         <item>Датчик освещенности</item>
-        <item>Запись звука</item>
+        <item>Воспроизведение звука</item>
         <item>Запись видео</item>
     </string-array>
-
-
-
     <string-array name="projects_context_menu">
         <item>Редактировать</item>
         <item>Удалить</item>
@@ -44,6 +41,7 @@
     <string name="project_start_title">Старт проекта</string>
     <string name="project_deadline_title">Дедлайн</string>
     <string name="project_finish_title">Окончание проекта</string>
-
+    <string name="title_activity_project">ProjectActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

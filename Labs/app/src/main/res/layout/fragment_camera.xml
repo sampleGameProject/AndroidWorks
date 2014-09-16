@@ -1,0 +1,46 @@
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:weightSum="1">
+
+    <SurfaceView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/surfaceView"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1.00" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <Button
+            android:layout_width="92dp"
+            android:layout_height="wrap_content"
+            android:text="record"
+            android:id="@+id/button2"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0.33" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="89dp"
+            android:layout_height="wrap_content"
+            android:text="play/stop"
+            android:id="@+id/button3"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0.34" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="restart"
+            android:id="@+id/button4"
+            android:layout_weight="0.33" />
+    </LinearLayout>
+</LinearLayout>

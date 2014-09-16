@@ -1,0 +1,108 @@
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="156dp"
+        android:layout_weight="0.38"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Large Text"
+            android:id="@+id/sensorName"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.33"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Large Text"
+            android:id="@+id/sensorVendor"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.33"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Large Text"
+            android:id="@+id/sensorVersion"
+            android:layout_gravity="center"
+            android:layout_weight="0.34"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lightIndicator"
+        android:layout_gravity="center_horizontal" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="167dp"
+        android:weightSum="1"
+        android:layout_weight="0.39">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Частота обновления датчика"
+            android:id="@+id/textView4"
+            android:layout_gravity="center_horizontal"
+            android:singleLine="false"
+            android:layout_weight="0.83"
+            android:gravity="center" />
+
+        <RadioGroup
+            android:layout_width="252dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/sensorRateRadioGroup">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Низкая"
+                android:id="@+id/sensorRateLow"
+                android:layout_margin="5dp" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Средняя"
+                android:id="@+id/sensorRateMedium"
+                android:layout_margin="5dp" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Высокая"
+                android:id="@+id/sensorRateHight"
+                android:singleLine="false"
+                android:layout_margin="5dp" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Реального времени"
+                android:id="@+id/sensorRateRealTime"
+                android:layout_margin="5dp" />
+        </RadioGroup>
+    </LinearLayout>
+
+</LinearLayout>
