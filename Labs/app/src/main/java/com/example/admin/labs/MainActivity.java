@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import com.example.admin.labs.fragments.MainActivityFragment;
 import com.example.admin.labs.fragments.ProjectsListFragment;
 import com.example.admin.labs.fragments.SimpleFragment;
 import com.example.admin.labs.fragments.sensors.SensorDemoFragment;
+import com.example.admin.labs.fragments.sensors.SensorsInfoFragment;
 import com.example.admin.labs.models.SectionsManager;
 
 
@@ -63,7 +65,6 @@ public class MainActivity extends Activity
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        // update the main content by replacing fragments
 
         if(!canSelectItemFragment(position)){
             String error = getErrorMessage(position);
@@ -103,10 +104,12 @@ public class MainActivity extends Activity
             case 5:
                 return FragmentFactory.createFragment(ProjectsListFragment.class,position);
             case 8:
-                return FragmentFactory.createFragment(SensorDemoFragment.class,position,Sensor.TYPE_AMBIENT_TEMPERATURE);
+                return FragmentFactory.createFragment(SensorsInfoFragment.class,position);
             case 9:
+                return FragmentFactory.createFragment(SensorDemoFragment.class,position,Sensor.TYPE_AMBIENT_TEMPERATURE);
+            case 10:
                 return FragmentFactory.createFragment(SensorDemoFragment.class,position,Sensor.TYPE_LIGHT);
-            case 11:
+            case 12:
                 return FragmentFactory.createFragment(CameraFragment.class,position);
         }
         return FragmentFactory.createFragment(PlaceholderFragment.class,position);
@@ -185,6 +188,7 @@ public class MainActivity extends Activity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            startActivity(new Intent(this,SettingsActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -192,10 +196,10 @@ public class MainActivity extends Activity
 
 
     private boolean canSelectItemFragment(int position) {
-        if (position == 9) {
+        if (position == 10) {
             return sensorIsAvailable(Sensor.TYPE_LIGHT);
         }
-        if(position == 8){
+        if(position == 9){
             return sensorIsAvailable(Sensor.TYPE_AMBIENT_TEMPERATURE);
         }
         return true;
@@ -206,16 +210,16 @@ public class MainActivity extends Activity
     }
 
     private String getErrorMessage(int position){
-        if(position == 9){
+        if(position == 10){
             return "Датчик освещения недоступен!";
         }
-        if(position == 8){
+        if(position == 9){
             return "Датчик температуры недоступен!";
         }
-        if(position == 10){
-            return "Запись звука недоступна!";
-        }
         if(position == 11){
+            return "звк ндстпн!";
+        }
+        if(position == 12){
             return "Запись видео недоступна!";
         }
         return "Ошибка!";

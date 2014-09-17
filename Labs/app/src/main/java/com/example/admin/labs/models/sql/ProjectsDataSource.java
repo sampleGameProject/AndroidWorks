@@ -27,12 +27,12 @@ public class ProjectsDataSource {
     private SQLiteDatabase database;
     private ProjectsBaseSQLiteHelper dbHelper;
     private String[] allProjectColumns = {
-            ProjectsBaseSQLiteHelper.COLUMN_ID,
-            ProjectsBaseSQLiteHelper.COLUMN_NAME,
-            ProjectsBaseSQLiteHelper.COLUMN_ABOUT,
-            ProjectsBaseSQLiteHelper.COLUMN_START,
-            ProjectsBaseSQLiteHelper.COLUMN_FINISH,
-            ProjectsBaseSQLiteHelper.COLUMN_DEADLINE,
+            ProjectConstants.COLUMN_ID,
+            ProjectConstants.COLUMN_NAME,
+            ProjectConstants.COLUMN_ABOUT,
+            ProjectConstants.COLUMN_START,
+            ProjectConstants.COLUMN_FINISH,
+            ProjectConstants.COLUMN_DEADLINE,
     };
 
     public ProjectsDataSource(Context context) {
@@ -50,10 +50,10 @@ public class ProjectsDataSource {
     public Project createProject(Project project){
         ContentValues values = projectToValues(project);
 
-        long insertId = database.insert(ProjectsBaseSQLiteHelper.TABLE_PROJECTS, null,
+        long insertId = database.insert(ProjectConstants.TABLE_PROJECTS, null,
                 values);
-        Cursor cursor = database.query(ProjectsBaseSQLiteHelper.TABLE_PROJECTS,
-                allProjectColumns, ProjectsBaseSQLiteHelper.COLUMN_ID + " = " + insertId, null,
+        Cursor cursor = database.query(ProjectConstants.TABLE_PROJECTS,
+                allProjectColumns, ProjectConstants.COLUMN_ID + " = " + insertId, null,
                 null, null, null);
         cursor.moveToFirst();
         Project newProject = null;
@@ -71,14 +71,14 @@ public class ProjectsDataSource {
     public void deleteProject(Project project) {
         long id = project.getId();
         System.out.println("Project deleted with id: " + id);
-        database.delete(ProjectsBaseSQLiteHelper.TABLE_PROJECTS, ProjectsBaseSQLiteHelper.COLUMN_ID
+        database.delete(ProjectConstants.TABLE_PROJECTS, ProjectConstants.COLUMN_ID
                 + " = " + id, null);
     }
 
     public List<Project> getAllProjects() throws ParseException {
         List<Project> projects = new ArrayList<Project>();
 
-        Cursor cursor = database.query(ProjectsBaseSQLiteHelper.TABLE_PROJECTS,
+        Cursor cursor = database.query(ProjectConstants.TABLE_PROJECTS,
                 allProjectColumns, null, null, null, null, null);
 
         cursor.moveToFirst();
@@ -106,17 +106,17 @@ public class ProjectsDataSource {
     public void update(Project project) {
         long id = project.getId();
 
-        database.update(ProjectsBaseSQLiteHelper.TABLE_PROJECTS,projectToValues(project), ProjectsBaseSQLiteHelper.COLUMN_ID
+        database.update(ProjectConstants.TABLE_PROJECTS,projectToValues(project), ProjectConstants.COLUMN_ID
                 + " = ?", new String[] {Long.toString(id) });
     }
 
     private ContentValues projectToValues(Project project){
         ContentValues values = new ContentValues();
-        values.put(ProjectsBaseSQLiteHelper.COLUMN_NAME, project.getName());
-        values.put(ProjectsBaseSQLiteHelper.COLUMN_START, dateFormat.format(project.getStart()));
-        values.put(ProjectsBaseSQLiteHelper.COLUMN_FINISH,  dateFormat.format(project.getStart()));
-        values.put(ProjectsBaseSQLiteHelper.COLUMN_DEADLINE,  dateFormat.format(project.getStart()));
-        values.put(ProjectsBaseSQLiteHelper.COLUMN_ABOUT, project.getAbout());
+        values.put(ProjectConstants.COLUMN_NAME, project.getName());
+        values.put(ProjectConstants.COLUMN_START, dateFormat.format(project.getStart()));
+        values.put(ProjectConstants.COLUMN_FINISH,  dateFormat.format(project.getStart()));
+        values.put(ProjectConstants.COLUMN_DEADLINE,  dateFormat.format(project.getStart()));
+        values.put(ProjectConstants.COLUMN_ABOUT, project.getAbout());
         return values;
     }
 }

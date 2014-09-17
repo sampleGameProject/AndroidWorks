@@ -2,4 +2,7 @@
 <resources>
     <item name="lightSensorBackground" type="color">#ff48cfff</item>
     <item name="ambientTemperatureBackground" type="color">#FFFF6B4C</item>
+    <item name="sensorListBackground" type="color">#ff3ba7ee</item>
+    <item name="sensorListBackground2" type="color">#ff268fee</item>
+    <item name="sensorListBackground3" type="color">#ff2d6aee</item>
 </resources>

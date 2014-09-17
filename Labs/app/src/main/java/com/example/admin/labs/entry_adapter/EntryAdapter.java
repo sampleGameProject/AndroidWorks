@@ -38,11 +38,8 @@ public class EntryAdapter extends ArrayAdapter<Item> {
     }
 
     @Override
-    public int getItemViewType(int position) { //framework calls getItemViewType for row n, the row it is about to display.
-        //Get the type of View that will be created by getView(int, View, ViewGroup) for the specified item.
-        Log.i("LIST", "item at " + position + " is "
-                + ((getItem(position).isSection() ? 0 : 1) == 0 ? "section" : "normal item"));
-        return getItem(position).isSection() ? 0 : 1; // get position passes (n) and accertain  is its a header  or not
+    public int getItemViewType(int position) {
+        return getItem(position).isSection() ? 0 : 1;
     }
 
     @Override
