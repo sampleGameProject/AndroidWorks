@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="lightSensorBackground" type="color">#ff48cfff</item>
+    <item name="ambientTemperatureBackground" type="color">#FFFF6B4C</item>
+</resources>

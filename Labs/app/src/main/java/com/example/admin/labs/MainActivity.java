@@ -20,9 +20,10 @@ import android.support.v4.widget.DrawerLayout;
 
 import com.example.admin.labs.fragments.CameraFragment;
 import com.example.admin.labs.fragments.DemoInterfaceFragment;
+import com.example.admin.labs.fragments.MainActivityFragment;
 import com.example.admin.labs.fragments.ProjectsListFragment;
 import com.example.admin.labs.fragments.SimpleFragment;
-import com.example.admin.labs.fragments.sensors.LightSensorDemoFragment;
+import com.example.admin.labs.fragments.sensors.SensorDemoFragment;
 import com.example.admin.labs.models.SectionsManager;
 
 
@@ -74,7 +75,7 @@ public class MainActivity extends Activity
         Log.i(LABS_TAG,"Select item at " + Integer.toString(position));
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, getFragment(position))
+                .replace(R.id.container, createFragment(position))
                 .commit();
     }
 
@@ -93,21 +94,64 @@ public class MainActivity extends Activity
         alert.show();
     }
 
+    private Fragment createFragment(int position){
+        switch(position){
+            case 1:
+                return FragmentFactory.createFragment(DemoInterfaceFragment.class,position);
+            case 2:
+                return FragmentFactory.createFragment(SimpleFragment.class,position);
+            case 5:
+                return FragmentFactory.createFragment(ProjectsListFragment.class,position);
+            case 8:
+                return FragmentFactory.createFragment(SensorDemoFragment.class,position,Sensor.TYPE_AMBIENT_TEMPERATURE);
+            case 9:
+                return FragmentFactory.createFragment(SensorDemoFragment.class,position,Sensor.TYPE_LIGHT);
+            case 11:
+                return FragmentFactory.createFragment(CameraFragment.class,position);
+        }
+        return FragmentFactory.createFragment(PlaceholderFragment.class,position);
+    }
 
-    private Fragment getFragment(int position) {
-        if (position == 1)
-            return DemoInterfaceFragment.newInstance(position);
-        if (position == 2)
-            return SimpleFragment.newInstance(position);
-        if (position == 5)
-            return ProjectsListFragment.newInstance(position);
-        if (position == 9)
-            return LightSensorDemoFragment.newInstance(position);
-        if (position == 11)
-            return CameraFragment.newInstance(position);
+    private static class FragmentFactory {
 
-        else
-            return PlaceholderFragment.newInstance(position);
+        public static <T extends MainActivityFragment> T createFragment(Class<T> mainActivityFragment, int sectionNumber) {
+
+            T fragment = createFragment(mainActivityFragment);
+            if (fragment == null)
+                return null;
+
+            Bundle args = new Bundle();
+            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            fragment.setArguments(args);
+
+            return fragment;
+        }
+
+        public static <T extends MainActivityFragment> T createFragment(Class<T> mainActivityFragment, int sectionNumber,int sensorType) {
+
+            T fragment = createFragment(mainActivityFragment);
+            if (fragment == null)
+                return null;
+
+            Bundle args = new Bundle();
+            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            args.putInt(SensorDemoFragment.SENSOR_TYPE,sensorType);
+            fragment.setArguments(args);
+
+            return fragment;
+        }
+
+        private static <T extends MainActivityFragment> T createFragment(Class<T> mainActivityFragment){
+            try {
+                return mainActivityFragment.newInstance();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+                return null;
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
     }
 
     public void onSectionAttached(int number) {
@@ -181,23 +225,7 @@ public class MainActivity extends Activity
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
+    public static class PlaceholderFragment extends MainActivityFragment {
 
         public PlaceholderFragment() {
         }
@@ -209,12 +237,6 @@ public class MainActivity extends Activity
             return rootView;
         }
 
-        @Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-            ((MainActivity) activity).onSectionAttached(
-                    getArguments().getInt(ARG_SECTION_NUMBER));
-        }
     }
 
 

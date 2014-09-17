@@ -12,17 +12,8 @@ import android.view.ViewGroup;
 import com.example.admin.labs.MainActivity;
 import com.example.admin.labs.R;
 
-public class CameraFragment extends Fragment implements SurfaceHolder.Callback {
+public class CameraFragment extends MainActivityFragment implements SurfaceHolder.Callback {
 
-    private OnFragmentInteractionListener mListener;
-
-    public static CameraFragment newInstance(int sectionNumber) {
-        CameraFragment fragment = new CameraFragment();
-        Bundle args = new Bundle();
-        args.putInt(MainActivity.ARG_SECTION_NUMBER, sectionNumber);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     public CameraFragment() {
         // Required empty public constructor
@@ -51,23 +42,6 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
 
     }
@@ -80,21 +54,6 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback {
     @Override
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
 
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
     }
 
 }

@@ -13,44 +13,26 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.admin.labs.MainActivity;
 import com.example.admin.labs.R;
+import com.example.admin.labs.fragments.MainActivityFragment;
 
-import org.w3c.dom.Text;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link LightSensorDemoFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link LightSensorDemoFragment#newInstance} factory method to
- * create an instance of this fragment.
- *
- */
-public class LightSensorDemoFragment extends Fragment implements SensorEventListener{
-
+public class SensorDemoFragment extends MainActivityFragment implements SensorEventListener{
 
     SensorManager sensorManager;
-    Sensor light;
+    Sensor sensor;
     int currentRate;
-    ProgressBar lightIndicator;
+    TextView textSensorValue;
 
     private OnFragmentInteractionListener mListener;
 
+    public static final String SENSOR_TYPE = "sensor_type";
 
-    // TODO: Rename and change types and number of parameters
-    public static LightSensorDemoFragment newInstance(int sectionNumber) {
-        LightSensorDemoFragment fragment = new LightSensorDemoFragment();
-        Bundle args = new Bundle();
-        args.putInt(MainActivity.ARG_SECTION_NUMBER, sectionNumber);
-        fragment.setArguments(args);
-        return fragment;
-    }
-    public LightSensorDemoFragment() {
+    public SensorDemoFragment() {
         // Required empty public constructor
 
     }
@@ -58,8 +40,6 @@ public class LightSensorDemoFragment extends Fragment implements SensorEventList
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
@@ -68,11 +48,14 @@ public class LightSensorDemoFragment extends Fragment implements SensorEventList
         // Inflate the layout for this fragment
 
         sensorManager = (SensorManager)getActivity().getSystemService(Context.SENSOR_SERVICE);
-        light = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-        currentRate = SensorManager.SENSOR_DELAY_NORMAL;
-        sensorManager.registerListener(this, light, currentRate );
 
-        View view = inflater.inflate(R.layout.fragment_light_sensor_demo, container, false);
+        int sensorType = getArguments().getInt(SENSOR_TYPE);
+
+        sensor = sensorManager.getDefaultSensor(sensorType);
+        currentRate = SensorManager.SENSOR_DELAY_NORMAL;
+        sensorManager.registerListener(this, sensor, currentRate );
+
+        View view = inflater.inflate(R.layout.fragment_sensor_demo, container, false);
         RadioGroup group = (RadioGroup) view.findViewById(R.id.sensorRateRadioGroup);
         group.check(R.id.sensorRateMedium);
         group.setOnClickListener(new View.OnClickListener() {
@@ -101,47 +84,41 @@ public class LightSensorDemoFragment extends Fragment implements SensorEventList
         TextView textVendor = (TextView) view.findViewById(R.id.sensorVendor);
         TextView textVersion = (TextView) view.findViewById(R.id.sensorVersion);
 
-        textName.setText(light.getName());
-        textVendor.setText(light.getVendor());
-        textVersion.setText(light.getVersion());
+        textName.setText(sensor.getName());
+        textVendor.setText(sensor.getVendor());
+        textVersion.setText("Версия " + Integer.toString(sensor.getVersion()));
 
-        lightIndicator = (ProgressBar) view.findViewById(R.id.lightIndicator);
+        textSensorValue = (TextView) view.findViewById(R.id.sensorValue);
+
+        switch (sensorType){
+            case Sensor.TYPE_LIGHT:
+                textSensorValue.setBackgroundColor(getResources().getColor(R.color.lightSensorBackground));
+                break;
+            case Sensor.TYPE_AMBIENT_TEMPERATURE:
+                textSensorValue.setBackgroundColor(getResources().getColor(R.color.ambientTemperatureBackground));
+                break;
+        }
         return view;
     }
 
     private void updateSensorDelay(int sensorDelay) {
         currentRate = sensorDelay;
         sensorManager.unregisterListener(this);
-        sensorManager.registerListener(this, light, currentRate);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        ((MainActivity) activity).onSectionAttached(
-                getArguments().getInt(MainActivity.ARG_SECTION_NUMBER));
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+        sensorManager.registerListener(this, sensor, currentRate);
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
 
-        if(event.sensor.getType()==Sensor.TYPE_LIGHT) {
+        if(event.sensor.getType() == Sensor.TYPE_LIGHT) {
             final float currentReading = event.values[0];
-            Log.i("SENSOR", event.toString());
-            lightIndicator.setProgress((int) currentReading);
+            Log.i("LIGHT SENSOR: ", Float.toString(currentReading));
+            textSensorValue.setText(String.format("Показания датчика: %.2f лк", currentReading));
+        }
+        if(event.sensor.getType() == Sensor.TYPE_AMBIENT_TEMPERATURE) {
+            final float currentReading = event.values[0];
+            Log.i("AMBIENT TEMPERATURE SENSOR: ", Float.toString(currentReading));
+            textSensorValue.setText(String.format("Показания датчика: %.2f °C", currentReading));
         }
     }
 
@@ -159,22 +136,7 @@ public class LightSensorDemoFragment extends Fragment implements SensorEventList
     @Override
     public void onResume(){
         super.onResume();
-        sensorManager.registerListener(this, light, currentRate);
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+        sensorManager.registerListener(this, sensor, currentRate);
     }
 
 }
