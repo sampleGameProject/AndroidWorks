@@ -17,13 +17,16 @@
         <item>Создание интерфейса вручную</item>
         <item>Создание интерфейса из layout</item>
     </string-array>
+
+    <string name="projects_manager">Менеджер проектов</string>
+
     <string-array name="data_work_array">
         <item>Pure SQL</item>
         <item>SQLHelper</item>
         <item>Custom Content Provider</item>
     </string-array>
     <string-array name="sensors_work_array">
-        <item>Датчики устройства</item>
+        <item>Информация о датчиках</item>
         <item>Датчик температуры</item>
         <item>Датчик освещенности</item>
         <item>Воспроизведение звука</item>

@@ -1,4 +1,4 @@
-package com.example.admin.labs.models.sql;
+package com.example.admin.labs.models.data.sql;
 
 /**
  * Created by admin on 17.09.2014.

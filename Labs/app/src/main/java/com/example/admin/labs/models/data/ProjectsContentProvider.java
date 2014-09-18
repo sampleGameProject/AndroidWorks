@@ -1,19 +1,18 @@
-package com.example.admin.labs.models.content_provider;
+package com.example.admin.labs.models.data;
 
 import android.content.ContentProvider;
 import android.content.ContentResolver;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.example.admin.labs.models.sql.ProjectConstants;
-import com.example.admin.labs.models.sql.ProjectsBaseSQLiteHelper;
+import com.example.admin.labs.models.helpers.ContentHelper;
+import com.example.admin.labs.models.data.sql.ProjectConstants;
+import com.example.admin.labs.models.data.sql.ProjectsBaseSQLiteHelper;
 
 /**
  * Created by admin on 17.09.2014.

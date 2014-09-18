@@ -1,11 +1,8 @@
 package com.example.admin.labs.fragments;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,16 +14,13 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
-import com.example.admin.labs.MainActivity;
 import com.example.admin.labs.ProjectActivity;
 import com.example.admin.labs.R;
-import com.example.admin.labs.models.IRepoListener;
-import com.example.admin.labs.models.ProjectsRepo;
-import com.example.admin.labs.models.sql.data_models.Project;
+import com.example.admin.labs.models.data.IRepoListener;
+import com.example.admin.labs.models.data.ProjectsRepo;
+import com.example.admin.labs.models.data.sql.data_models.Project;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 
 public class ProjectsListFragment extends MainActivityFragment implements IRepoListener{
 
@@ -78,14 +72,12 @@ public class ProjectsListFragment extends MainActivityFragment implements IRepoL
     }
 
     private void setupListAdapter(){
-
         SimpleAdapter adapter = new SimpleAdapter(getActivity(), projectsRepo.getProjectsArrayList(), R.layout.project_list_item,
                 new String[] {"Name", "About"},
                 new int[] { R.id.project_name, R.id.project_about});
 
         listView.setAdapter(adapter);
         registerForContextMenu(listView);
-
     }
 
     @Override

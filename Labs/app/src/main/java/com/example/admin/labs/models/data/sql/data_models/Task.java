@@ -1,9 +1,9 @@
-package com.example.admin.labs.models.sql.data_models;
+package com.example.admin.labs.models.data.sql.data_models;
 
 /**
  * Created by admin on 13.09.2014.
  */
-public class Task {
+public class Task extends BaseDataModel{
     public int getPriority() {
         return priority;
     }

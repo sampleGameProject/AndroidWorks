@@ -1,6 +1,8 @@
-package com.example.admin.labs.models.sql.data_models;
+package com.example.admin.labs.models.data.sql.data_models;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by admin on 13.09.2014.
@@ -10,6 +12,8 @@ public class Project extends BaseDataModel{
     protected Date start;
     protected Date deadline;
     protected Date finish;
+
+    protected List<Task> tasks = new ArrayList<Task>();
 
     public String getAbout() {
         return about;
@@ -45,4 +49,7 @@ public class Project extends BaseDataModel{
         this.finish = finish;
     }
 
+    public List<Task> getTasks(){
+        return tasks;
+    }
 }

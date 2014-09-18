@@ -1,4 +1,4 @@
-package com.example.admin.labs.models;
+package com.example.admin.labs.models.helpers;
 
 import android.app.AlertDialog;
 import android.content.Context;

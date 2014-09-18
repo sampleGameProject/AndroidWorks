@@ -1,4 +1,4 @@
-package com.example.admin.labs.models.sql;
+package com.example.admin.labs.models.data.sql;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,22 +7,19 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.example.admin.labs.models.sql.data_models.Project;
+import com.example.admin.labs.models.helpers.DateHelper;
+import com.example.admin.labs.models.data.sql.data_models.Project;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by admin on 13.09.2014.
  */
 public class ProjectsDataSource {
     // Database fields
-    protected static  SimpleDateFormat dateFormat = new SimpleDateFormat(
-            "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+
 
     private SQLiteDatabase database;
     private ProjectsBaseSQLiteHelper dbHelper;
@@ -97,9 +94,9 @@ public class ProjectsDataSource {
         project.setId(cursor.getLong(0));
         project.setName(cursor.getString(1));
         project.setAbout(cursor.getString(2));
-        project.setStart(dateFormat.parse(cursor.getString(3)));
-        project.setFinish(dateFormat.parse(cursor.getString(4)));
-        project.setDeadline(dateFormat.parse(cursor.getString(5)));
+        project.setStart(DateHelper.stringToDate(cursor.getString(3)));
+        project.setFinish(DateHelper.stringToDate(cursor.getString(4)));
+        project.setDeadline(DateHelper.stringToDate(cursor.getString(5)));
         return project;
     }
 
@@ -108,14 +105,15 @@ public class ProjectsDataSource {
 
         database.update(ProjectConstants.TABLE_PROJECTS,projectToValues(project), ProjectConstants.COLUMN_ID
                 + " = ?", new String[] {Long.toString(id) });
+
     }
 
     private ContentValues projectToValues(Project project){
         ContentValues values = new ContentValues();
         values.put(ProjectConstants.COLUMN_NAME, project.getName());
-        values.put(ProjectConstants.COLUMN_START, dateFormat.format(project.getStart()));
-        values.put(ProjectConstants.COLUMN_FINISH,  dateFormat.format(project.getStart()));
-        values.put(ProjectConstants.COLUMN_DEADLINE,  dateFormat.format(project.getStart()));
+        values.put(ProjectConstants.COLUMN_START, DateHelper.dateToString(project.getStart()));
+        values.put(ProjectConstants.COLUMN_FINISH, DateHelper.dateToString(project.getFinish()));
+        values.put(ProjectConstants.COLUMN_DEADLINE, DateHelper.dateToString(project.getDeadline()));
         values.put(ProjectConstants.COLUMN_ABOUT, project.getAbout());
         return values;
     }

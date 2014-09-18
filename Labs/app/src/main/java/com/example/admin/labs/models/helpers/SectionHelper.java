@@ -1,4 +1,4 @@
-package com.example.admin.labs.models;
+package com.example.admin.labs.models.helpers;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * Created by admin on 11.09.2014.
  */
-public class SectionsManager {
+public class SectionHelper {
 
     class Section{
         private String title;
@@ -38,7 +38,7 @@ public class SectionsManager {
     private Section[] sections;
     private HashMap<Integer,String> itemTitlesMap;
 
-    public SectionsManager(Context context){
+    public SectionHelper(Context context){
         sections = new Section[3];
 
         Resources res = context.getResources();
@@ -47,7 +47,7 @@ public class SectionsManager {
                 res.getStringArray(R.array.interface_array));
 
         sections[1] = new Section(context.getString(R.string.title_section2),
-                res.getStringArray(R.array.data_work_array));
+                new String[]{res.getString(R.string.projects_manager)});
 
         sections[2] = new Section(context.getString(R.string.title_section3),
                 res.getStringArray(R.array.sensors_work_array));
@@ -55,6 +55,8 @@ public class SectionsManager {
         itemTitlesMap = new HashMap<Integer, String>();
 
         int index = 1;
+
+        itemTitlesMap.put(0,res.getString(R.string.app_name));
 
         for(Section s : sections){
             String[] titleItems = s.getItems();
@@ -86,4 +88,6 @@ public class SectionsManager {
         else
             return "Unknown key";
     }
+
+
 }

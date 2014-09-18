@@ -3,11 +3,10 @@ package com.example.admin.labs;
 import android.app.Activity;
 
 import android.app.ActionBar;
-import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
@@ -27,8 +26,8 @@ import com.example.admin.labs.fragments.ProjectsListFragment;
 import com.example.admin.labs.fragments.SimpleFragment;
 import com.example.admin.labs.fragments.sensors.SensorDemoFragment;
 import com.example.admin.labs.fragments.sensors.SensorsInfoFragment;
-import com.example.admin.labs.models.AlertDialogHelper;
-import com.example.admin.labs.models.SectionsManager;
+import com.example.admin.labs.models.helpers.AlertDialogHelper;
+import com.example.admin.labs.models.helpers.SectionHelper;
 
 
 public class MainActivity extends Activity
@@ -43,15 +42,32 @@ public class MainActivity extends Activity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
-    private SectionsManager sectionsManager;
+    private SectionHelper sectionsManager;
     private SensorManager sensorManager;
 
     public static final String ARG_SECTION_NUMBER = "section_number";
     private static final String LABS_TAG = "LABS_TAG";
 
+    private static final int DEMO_INTERFACE_POSITION = 1;
+    private static final int SIMPLE_INTERFACE_POSITION = 2;
+    private static final int PROJECTS_MANAGER_POSITION = 4;
+    private static final int SENSORS_LIST_POSITION = 6;
+    private static final int AMBIENT_TEMPERATURE_SENSOR_POSITION = 7;
+    private static final int LIGHT_SENSOR_POSITION = 8;
+    private static final int DEMO_SOUND_POSITION = 9;
+    private static final int DEMO_CAMERA_POSITION = 10;
+
+    public static final String LAB_PREFERENCES = "lab_preferences";
+    public static final String SELECTED_POSITION = "selected_postion";
+
+    private SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        sharedPreferences = getSharedPreferences(LAB_PREFERENCES,MODE_PRIVATE);
+
         setContentView(R.layout.activity_main);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
@@ -61,8 +77,9 @@ public class MainActivity extends Activity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
-        sectionsManager = new SectionsManager(this);
+        sectionsManager = new SectionHelper(this);
         sensorManager = (SensorManager)this.getSystemService(SENSOR_SERVICE);
+
   }
 
     @Override
@@ -75,6 +92,10 @@ public class MainActivity extends Activity
             return;
         }
 
+        SharedPreferences.Editor editor =  sharedPreferences.edit();
+        editor.putInt(SELECTED_POSITION, position);
+        editor.commit();
+
         Log.i(LABS_TAG,"Select item at " + Integer.toString(position));
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
@@ -86,19 +107,19 @@ public class MainActivity extends Activity
 
     private Fragment createFragment(int position){
         switch(position){
-            case 1:
+            case DEMO_INTERFACE_POSITION:
                 return FragmentFactory.createFragment(DemoInterfaceFragment.class,position);
-            case 2:
+            case SIMPLE_INTERFACE_POSITION:
                 return FragmentFactory.createFragment(SimpleFragment.class,position);
-            case 5:
+            case PROJECTS_MANAGER_POSITION:
                 return FragmentFactory.createFragment(ProjectsListFragment.class,position);
-            case 8:
+            case SENSORS_LIST_POSITION:
                 return FragmentFactory.createFragment(SensorsInfoFragment.class,position);
-            case 9:
+            case AMBIENT_TEMPERATURE_SENSOR_POSITION:
                 return FragmentFactory.createFragment(SensorDemoFragment.class,position,Sensor.TYPE_AMBIENT_TEMPERATURE);
-            case 10:
+            case LIGHT_SENSOR_POSITION:
                 return FragmentFactory.createFragment(SensorDemoFragment.class,position,Sensor.TYPE_LIGHT);
-            case 12:
+            case DEMO_CAMERA_POSITION:
                 return FragmentFactory.createFragment(CameraFragment.class,position);
         }
         return FragmentFactory.createFragment(PlaceholderFragment.class,position);
@@ -185,14 +206,14 @@ public class MainActivity extends Activity
 
 
     private boolean canSelectItemFragment(int position) {
-        if (position == 10) {
+        if (position == LIGHT_SENSOR_POSITION) {
             return sensorIsAvailable(Sensor.TYPE_LIGHT);
         }
-        if(position == 9){
+        if(position == AMBIENT_TEMPERATURE_SENSOR_POSITION){
             return sensorIsAvailable(Sensor.TYPE_AMBIENT_TEMPERATURE);
         }
 
-        if(position == 12){
+        if(position == DEMO_CAMERA_POSITION){
             return this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA);
         }
 
@@ -204,25 +225,22 @@ public class MainActivity extends Activity
     }
 
     private String getErrorMessage(int position){
-        if(position == 10){
+        if(position == LIGHT_SENSOR_POSITION){
             return "Датчик освещения недоступен!";
         }
-        if(position == 9){
+        if(position == AMBIENT_TEMPERATURE_SENSOR_POSITION){
             return "Датчик температуры недоступен!";
         }
-        if(position == 11){
+        if(position == DEMO_SOUND_POSITION){
             return "звк ндстпн!";
         }
-        if(position == 12){
+        if(position == DEMO_CAMERA_POSITION){
             return "Видео камера недоступна!";
         }
         return "Ошибка!";
     }
 
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
     public static class PlaceholderFragment extends MainActivityFragment {
 
         public PlaceholderFragment() {

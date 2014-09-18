@@ -1,15 +1,9 @@
 package com.example.admin.labs.fragments.sensors;
 
-import android.app.Activity;
 import android.content.Context;
 import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +12,6 @@ import android.widget.SimpleAdapter;
 
 import com.example.admin.labs.R;
 import com.example.admin.labs.fragments.MainActivityFragment;
-import com.example.admin.labs.models.sql.data_models.Project;
 
 import java.util.ArrayList;
 import java.util.HashMap;

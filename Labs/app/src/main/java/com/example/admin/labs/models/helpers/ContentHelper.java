@@ -1,4 +1,4 @@
-package com.example.admin.labs.models.content_provider;
+package com.example.admin.labs.models.helpers;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;

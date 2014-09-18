@@ -1,13 +1,9 @@
 package com.example.admin.labs.fragments;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.hardware.Camera;
 import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
-import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
@@ -15,9 +11,8 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.admin.labs.MainActivity;
 import com.example.admin.labs.R;
-import com.example.admin.labs.models.AlertDialogHelper;
+import com.example.admin.labs.models.helpers.AlertDialogHelper;
 
 import java.io.IOException;
 

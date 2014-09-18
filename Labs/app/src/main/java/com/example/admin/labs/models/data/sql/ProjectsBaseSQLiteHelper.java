@@ -1,4 +1,4 @@
-package com.example.admin.labs.models.sql;
+package com.example.admin.labs.models.data.sql;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,8 +16,8 @@ public class ProjectsBaseSQLiteHelper extends SQLiteOpenHelper {
 
 
     @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL(ProjectConstants.DATABASE_CREATE);
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL(ProjectConstants.DATABASE_CREATE);
     }
 
     @Override

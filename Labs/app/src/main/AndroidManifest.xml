@@ -26,7 +26,7 @@
         </activity>
 
         <provider
-            android:name=".models.content_provider.ProjectsContentProvider"
+            android:name=".models.data.ProjectsContentProvider"
             android:authorities="com.example.admin.labs.ProjectsProvider" >
         </provider>
 
