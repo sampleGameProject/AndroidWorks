@@ -8,6 +8,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import com.example.admin.labs.fragments.ProjectsListFragment;
 import com.example.admin.labs.fragments.SimpleFragment;
 import com.example.admin.labs.fragments.sensors.SensorDemoFragment;
 import com.example.admin.labs.fragments.sensors.SensorsInfoFragment;
+import com.example.admin.labs.models.AlertDialogHelper;
 import com.example.admin.labs.models.SectionsManager;
 
 
@@ -69,7 +71,7 @@ public class MainActivity extends Activity
         if(!canSelectItemFragment(position)){
             String error = getErrorMessage(position);
             Log.i(LABS_TAG,error);
-            showAlertView(error);
+            AlertDialogHelper.showAlertView(this, error);
             return;
         }
 
@@ -80,20 +82,7 @@ public class MainActivity extends Activity
                 .commit();
     }
 
-    private void showAlertView(String error) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle("Сообщение")
-                .setMessage(error)
-                .setNegativeButton("Ок",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
 
     private Fragment createFragment(int position){
         switch(position){
@@ -202,6 +191,11 @@ public class MainActivity extends Activity
         if(position == 9){
             return sensorIsAvailable(Sensor.TYPE_AMBIENT_TEMPERATURE);
         }
+
+        if(position == 12){
+            return this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA);
+        }
+
         return true;
     }
 
@@ -220,7 +214,7 @@ public class MainActivity extends Activity
             return "звк ндстпн!";
         }
         if(position == 12){
-            return "Запись видео недоступна!";
+            return "Видео камера недоступна!";
         }
         return "Ошибка!";
     }

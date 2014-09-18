@@ -38,6 +38,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.admin.labs.MainActivity" />
         </activity>
+
+        <uses-permission android:name="android.permission.CAMERA" ></uses-permission>
+        <uses-feature android:name="android.hardware.camera.autofocus" />
     </application>
 
 </manifest>
