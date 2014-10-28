@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Работа с данными</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Настройки</string>
+    <string name="title_activity_shader_preferences">Общие настройки</string>
+    <string name="value1_title">Простой выбор</string>
+    <string name="value2_title">Простой чекбокс</string>
+    <string name="checkbox_title">Жми меня</string>
+    <string name="radio1_title">iPhone 5s</string>
+    <string name="radio_title2">iPhone 6</string>
+    <string name="radio3_title">iPhone 6Plus</string>
+    <string name="value3_title">Простой пароль</string>
+    <string name="save_values_title">Сохранить</string>
+    <string name="show_shared_preferences">Общие настройки</string>
+    <string name="preferences_saved_toast">Настройки сохранены</string>
+    <string name="save_to_json_title">save as JSON</string>
+    <string name="json_success">JSON успешно сохранен</string>
+    <string name="json_failed">Не удалось записать данные в файл</string>
+    <string name="jsonFileName">values.json</string>
+    <string name="defaultValue3">12345</string>
+    <string name="title_activity_json">Просморт JSON документа</string>
+    <string name="json_show_title">Открыть JSON файл</string>
+    <string name="title_activity_csv">CSVActivity</string>
+    <string name="button_csv_title">Открыть CSV файл</string>
+
+</resources>

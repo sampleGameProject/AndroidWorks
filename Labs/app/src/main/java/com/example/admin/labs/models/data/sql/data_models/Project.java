@@ -13,8 +13,6 @@ public class Project extends BaseDataModel{
     protected Date deadline;
     protected Date finish;
 
-    protected List<Task> tasks = new ArrayList<Task>();
-
     public String getAbout() {
         return about;
     }
@@ -49,7 +47,4 @@ public class Project extends BaseDataModel{
         this.finish = finish;
     }
 
-    public List<Task> getTasks(){
-        return tasks;
-    }
 }

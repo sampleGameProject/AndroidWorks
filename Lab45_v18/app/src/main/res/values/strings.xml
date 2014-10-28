@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Работа с данными</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Настройки</string>
+    <string name="title_activity_shader_preferences">Общие настройки</string>
+    <string name="value1_title">Простой выбор</string>
+    <string name="value2_title">Простой чекбокс</string>
+    <string name="checkbox_title">Жми меня</string>
+    <string name="radio1_title">iPhone 5s</string>
+    <string name="radio_title2">iPhone 6</string>
+    <string name="radio3_title">iPhone 6Plus</string>
+    <string name="value3_title">Простой пароль</string>
+    <string name="save_values_title">Сохранить</string>
+    <string name="show_shared_preferences">Общие настройки</string>
+    <string name="preferences_saved_toast">Настройки сохранены</string>
+    <string name="save_to_json_title">Сохранить JSON</string>
+    <string name="json_success">JSON успешно сохранен</string>
+    <string name="json_failed">Не удалось записать данные в файл</string>
+    <string name="jsonFileName">values.json</string>
+    <string name="defaultValue3">12345</string>
+    <string name="title_activity_json">Просморт JSON документа</string>
+    <string name="json_show_title">Открыть JSON файл</string>
+    <string name="title_activity_csv">CSVActivity</string>
+    <string name="button_csv_title">Открыть CSV файл</string>
+    <string name="title_activity_data">Афиша</string>
+    <string name="title_movies">Кино</string>
+    <string name="title_actors">Актеры</string>
+    <string name="poster_title">Афиша</string>
+    <string name="title_activity_movie">Кино</string>
+    <string name="title_activity_actor">ActorActivity</string>
+    <string name="title_name">Название</string>
+    <string name="title_original">Ориганальное название</string>
+    <string name="title_year">Год выпуска</string>
+    <string name="actors_list_title">В фильме снимались:</string>
+    <string name="buttonSaveTitle">Сохранить</string>
+    <string name="buttonAddActorTitle">Добавить</string>
+    <string name="title_activity_poster">Афиша</string>
+    <string name="buttonTheaterTitle">Кинотеатры</string>
+    <string name="buttonMoviesTitle">Фильмы</string>
+    <string name="title_activity_movies">Список фильмов</string>
+    <string name="title_activity_theaters">Список  кинотеатров</string>
+    <string name="titleLenght">Длительность</string>
+    <string name="titleMin">мин.</string>
+    <string name="titleDelete">Удалить</string>
+    <string name="buttonAddTitle">Добавить</string>
+    <string name="titleName">Название</string>
+    <string name="titleNewMovie">Новый фильм</string>
+    <string name="titleAddress">Адрес</string>
+    <string name="title_activity_theater">Сеансы</string>
+    <string name="titleSeances">Сеансы</string>
+    <string name="titleTime">Время</string>
+    <string name="is3d">3D</string>
+    <string name="titleMovie">Фильм</string>
+    <string name="titleNewSeance">Добавить сеанс</string>
+    <string name="titleNewTheater">Добавить кинотеатр</string>
+    <string name="titleUseContentProvider">Использовать ContentProvider</string>
+    <string name="titleEdit">Изменить</string>
+    <string name="title_activity_telephony_sms">TelephonySMSActivity</string>
+    <string name="buttonTelephonySmsTitle">TelephonySms</string>
+
+</resources>

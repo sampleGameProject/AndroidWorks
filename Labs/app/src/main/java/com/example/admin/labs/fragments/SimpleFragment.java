@@ -7,6 +7,9 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import com.example.admin.labs.MainActivity;
 import com.example.admin.labs.R;
@@ -29,7 +32,16 @@ public class SimpleFragment extends MainActivityFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_simple, container, false);
+        View view = inflater.inflate(R.layout.fragment_simple, container, false);
+
+        ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
+
+        Animation animRotate = AnimationUtils.loadAnimation(getActivity(),
+                R.anim.infinite_rotation);
+
+        imageView.setAnimation(animRotate);
+
+        return view;
     }
 
 
