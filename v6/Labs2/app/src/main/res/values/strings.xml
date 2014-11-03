@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Лабораторные работы</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title1">Лабораторные работы по дисциплине \"Программирование мобильных систем\"</string>
+    <string name="title2">Выполнил студент группы 10ПО2 Калашников А.</string>
+    <string name="startButtonTitle1">Создание интерфейса из xml</string>
+    <string name="startButtonTitle2">Создание интерфейса программно</string>
+    <string name="title_activity_interface">InterfaceActivity</string>
+    <string name="title_section1">Демонстрация стилей</string>
+    <string name="title_section2">Демонстрация анимации</string>
+    <string name="title_section3">Демонстрация Drawable</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="title_activity_main">Демонстрация интерфейса</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="button1Text">text1</string>
+    <string name="button2text">text2</string>
+    <string name="button3text">Large2</string>
+    <string name="button4text">ASD</string>
+    <string name="button5text">DSA</string>
+    <string name="radio3">New3</string>
+    <string name="radio2">New2</string>
+    <string name="radio1">New1</string>
+    <string name="toast1">Demonstration with xml resources</string>
+    <string name="toast2">Demonstration with programmatically interface</string>
+    <color name="color">#ff13bea0</color>
+
+</resources>

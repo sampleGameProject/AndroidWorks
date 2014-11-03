@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="kalashnikov_10po2.lab45" >
+
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".StartActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings" >
+        </activity>
+        <activity
+            android:name=".ShaderPreferencesActivity"
+            android:label="@string/title_activity_shader_preferences"
+            android:parentActivityName=".StartActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="kalashnikov_10po2.lab45.StartActivity" />
+        </activity>
+        <activity
+            android:name=".JSONActivity"
+            android:label="@string/title_activity_json"
+            android:parentActivityName=".StartActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="kalashnikov_10po2.lab45.StartActivity" />
+        </activity>
+        <activity
+            android:name=".CSVActivity"
+            android:label="@string/title_activity_csv"
+            android:parentActivityName=".StartActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="kalashnikov_10po2.lab45.StartActivity" />
+        </activity>
+        <activity
+            android:name=".AutoServiceActivity"
+            android:label="@string/title_autoservice"
+            android:parentActivityName=".StartActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="kalashnikov_10po2.lab45.StartActivity" />
+        </activity>
+        <activity
+            android:name=".data.EmployeesListActivity"
+            android:label="@string/title_activity_employees"
+            android:parentActivityName=".AutoServiceActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="kalashnikov_10po2.lab45.PosterActivity" />
+        </activity>
+        <activity
+            android:name=".data.CarsListActivity"
+            android:label="@string/title_activity_cars"
+            android:parentActivityName=".AutoServiceActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="kalashnikov_10po2.lab45.PosterActivity" />
+        </activity>
+        <activity
+            android:name=".data.TasksListActivity"
+            android:label="@string/buttonTitleTasks"
+            android:parentActivityName=".data.EmployeesListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="kalashnikov_10po2.lab45.data.ItemsListActivity" />
+        </activity>
+
+        <provider
+            android:name=".data.AutoServiceContentProvider"
+            android:authorities="kalashnikov_10po2.contentprovider" >
+        </provider>
+
+        <activity
+            android:name=".data.ContactsActivity"
+            android:label="@string/title_activity_contacts"
+            android:parentActivityName=".StartActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="kalashnikov_10po2.lab45.StartActivity" />
+        </activity>
+    </application>
+
+</manifest>

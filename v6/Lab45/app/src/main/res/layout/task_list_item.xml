@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:layout_margin="5dp"
+        android:focusable="false"
+        android:id="@+id/textViewTask" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="В "
+
+        android:layout_marginLeft="5dp"
+        android:focusable="false"
+        android:id="@+id/textViewCarName" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+
+        android:focusable="false"
+        android:id="@+id/textViewEmployeeName" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/isCompleted"
+        android:id="@+id/checkBoxIsComplete"
+        android:focusable="false"
+        android:enabled="false"
+        android:checked="false" />
+</LinearLayout>

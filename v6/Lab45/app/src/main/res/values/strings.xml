@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Работа с данными</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Настройки</string>
+    <string name="title_activity_shader_preferences">Общие настройки</string>
+    <string name="value1_title">Лучший автомобиль</string>
+    <string name="value2_title">Чекбокс</string>
+    <string name="checkbox_title">Жми меня</string>
+    <string name="radio1_title">Калина</string>
+    <string name="radio_title2">Гранта</string>
+    <string name="radio3_title">ВАЗ 2105</string>
+    <string name="value3_title">Пароль от автомобиля</string>
+    <string name="save_values_title">Сохранить</string>
+    <string name="show_shared_preferences">Общие настройки</string>
+    <string name="preferences_saved_toast">Настройки сохранены</string>
+    <string name="save_to_json_title">Сохранить JSON</string>
+    <string name="json_success">JSON успешно сохранен</string>
+    <string name="json_failed">Не удалось записать данные в файл</string>
+    <string name="jsonFileName">values.json</string>
+    <string name="defaultValue3">12345</string>
+    <string name="title_activity_json">Просморт JSON документа</string>
+    <string name="json_show_title">Открыть JSON файл</string>
+    <string name="title_activity_csv">CSVActivity</string>
+    <string name="button_csv_title">Открыть CSV файл</string>
+    <string name="title_name">Название</string>
+    <string name="buttonSaveTitle">Сохранить</string>
+    <string name="title_autoservice">Автосервис</string>
+    <string name="buttonEmployeeTitle">Сотрудники</string>
+    <string name="buttonCarTitle">Автомобили</string>
+    <string name="buttonTitleTasks">Задачи</string>
+    <string name="title_activity_cars">Список авто</string>
+    <string name="title_activity_employees">Список  сотрудников</string>
+
+    <string name="titleDelete">Удалить</string>
+    <string name="buttonAddTitle">Добавить</string>
+    <string name="titleName">ФИО</string>
+    <string name="titleAddress">Адрес</string>
+
+    <string name="isCompleted">Завершено</string>
+    <string name="titleNewTask">Добавить задачу</string>
+    <string name="titleNewEmployee">Добавить сотрудника</string>
+    <string name="titleUseContentProvider">Использовать ContentProvider</string>
+    <string name="titleEdit">Изменить</string>
+    <string name="title_activity_contacts">Contacts</string>
+    <string name="buttonContanctsTitle">Contacts</string>
+
+    <string name="titleNumber">Гос. номер</string>
+    <string name="titlePost">Должность</string>
+    <string name="titleCarName">Авто</string>
+
+</resources>

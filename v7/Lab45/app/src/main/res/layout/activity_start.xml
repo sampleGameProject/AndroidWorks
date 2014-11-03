@@ -1,0 +1,59 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".StartActivity">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/show_shared_preferences"
+        android:id="@+id/buttonShowPreferences"
+        android:layout_above="@+id/buttonOpenJSON"
+        android:layout_alignLeft="@+id/buttonOpenCSV"
+        android:layout_alignStart="@+id/buttonOpenCSV"
+        android:layout_marginBottom="37dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/json_show_title"
+        android:id="@+id/buttonOpenJSON"
+        android:layout_marginBottom="45dp"
+        android:layout_above="@+id/buttonOpenCSV"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_csv_title"
+        android:id="@+id/buttonOpenCSV"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/buttonOpenJSON"
+        android:layout_alignStart="@+id/buttonOpenJSON" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/titlePlan"
+        android:id="@+id/buttonPlan"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/buttonShowPreferences"
+        android:layout_alignStart="@+id/buttonShowPreferences"
+        android:layout_marginBottom="139dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/buttonTelephonySmsTitle"
+        android:id="@+id/buttonTelephony"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/buttonPlan"
+        android:layout_marginBottom="62dp"
+        android:singleLine="false" />
+
+</RelativeLayout>
