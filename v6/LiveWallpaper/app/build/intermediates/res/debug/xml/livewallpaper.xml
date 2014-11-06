@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wallpaper xmlns:android="http://schemas.android.com/apk/res/android"
+	android:settingsActivity="ca.jvsh.livewallpaper.LiveWallpaperSettings"
+	android:thumbnail="@drawable/icon"/>
+<!-- From: file:/C:/Users/admin/Documents/GitHub/AndroidWorks/v6/LiveWallpaper/app/src/main/res/xml/livewallpaper.xml -->

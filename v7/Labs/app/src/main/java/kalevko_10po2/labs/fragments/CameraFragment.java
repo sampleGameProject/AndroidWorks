@@ -11,34 +11,20 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.FrameLayout;
+
 import kalevko_10po2.R;
 
 import java.io.IOException;
 
-public class CameraFragment extends Fragment implements SurfaceHolder.Callback {
+public class CameraFragment extends Fragment {
 
-    SurfaceHolder holder;
-    Camera camera;
-    SurfaceView surfaceView;
-    MediaRecorder recorder;
-
-    private static final String FILE_OUTPUT = "";
-
-    private static class CameraHelper{
-        public static Camera getCameraInstance(){
-            Camera c = null;
-            try {
-                c = Camera.open(); // attempt to get a Camera instance
-            }
-            catch (Exception e){
-                // Camera is not available (in use or does not exist)
-                Log.d(CAMERA_TAG,e.toString());
-            }
-            return c; // returns null if camera is unavailable
-        }
-    }
-
-    static final String CAMERA_TAG = "CAMERA";
+    private static final String TAG = "CAMERA";
+    private Camera mCamera;
+    private CameraPreview mPreview;
+    private MediaRecorder mMediaRecorder;
+    private boolean isRecording = false;
 
     public CameraFragment() {
         // Required empty public constructor
@@ -50,114 +36,100 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_camera, container, false);
-        surfaceView = (SurfaceView) view.findViewById(R.id.surfaceView);
-        holder = surfaceView.getHolder();
+        mCamera = getCameraInstance();
+        mPreview = new CameraPreview(getActivity(), mCamera);
+        FrameLayout preview = (FrameLayout) view.findViewById(R.id.camera_preview);
+        preview.addView(mPreview);
+        final Button captureButton = (Button) view.findViewById(R.id.button_capture);
+        captureButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (isRecording) {
 
-        recorder = new MediaRecorder();
-//        setupCamera();
+                            mMediaRecorder.stop();
+                            releaseMediaRecorder();
+                            mCamera.lock();
 
+                            captureButton.setText("Запись");
+                            isRecording = false;
+                        } else {
+                            if (prepareVideoRecorder()) {
+
+                                mMediaRecorder.start();
+
+                                captureButton.setText("Стоп");
+                                isRecording = true;
+                            } else {
+                                releaseMediaRecorder();
+                            }
+                        }
+                    }
+                }
+        );
         return view;
     }
 
 
     @Override
-    public void onPause(){
+    public void onPause() {
         super.onPause();
+        releaseMediaRecorder();
+        releaseCamera();
+    }
 
-        if (camera != null){
-            camera.release();
-            camera = null;
-            holder.removeCallback(this);
+    private void releaseMediaRecorder(){
+        if (mMediaRecorder != null) {
+            mMediaRecorder.reset();
+            mMediaRecorder.release();
+            mMediaRecorder = null;
+            mCamera.lock();
         }
     }
 
-    @Override
-    public void onResume(){
-        super.onResume();
-        setupCamera();
+    private void releaseCamera(){
+        if (mCamera != null){
+            mCamera.release();
+            mCamera = null;
+        }
     }
 
-    private void setupCamera(){
-        camera = CameraHelper.getCameraInstance();
 
-        if(camera == null)
-            AlertDialogHelper.showAlertView(getActivity(),"Не удалось подключится к камере. Возможно, камера используется другим процессом");
-        else
-            holder.addCallback(this);
-    }
-
-    @Override
-    public void surfaceCreated(SurfaceHolder surfaceHolder) {
+    public static Camera getCameraInstance(){
+        Camera c = null;
         try {
-            camera.setPreviewDisplay(holder);
-            camera.startPreview();
+            c = Camera.open();
+        }
+        catch (Exception e){
+
+        }
+        return c;
+    }
+
+    private boolean prepareVideoRecorder(){
+
+        mCamera = getCameraInstance();
+        mMediaRecorder = new MediaRecorder();
+        mCamera.unlock();
+        mMediaRecorder.setCamera(mCamera);
+        mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);
+        mMediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
+        mMediaRecorder.setProfile(CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH));
+        mMediaRecorder.setOutputFile("TEST_FILE");
+        mMediaRecorder.setPreviewDisplay(mPreview.getHolder().getSurface());
+
+        try {
+            mMediaRecorder.prepare();
+        } catch (IllegalStateException e) {
+            Log.d(TAG, "IllegalStateException preparing MediaRecorder: " + e.getMessage());
+            releaseMediaRecorder();
+            return false;
         } catch (IOException e) {
-            Log.d(CAMERA_TAG, "Error setting camera preview: " + e.getMessage());
+            Log.d(TAG, "IOException preparing MediaRecorder: " + e.getMessage());
+            releaseMediaRecorder();
+            return false;
         }
-
-    }
-
-    public void surfaceDestroyed(SurfaceHolder holder) {
-        // empty. Take care of releasing the Camera preview in your activity.
-    }
-
-    public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
-        // If your preview can change or rotate, take care of those events here.
-        // Make sure to stop the preview before resizing or reformatting it.
-
-        if (holder.getSurface() == null){
-            // preview surface does not exist
-            return;
-        }
-
-        // stop preview before making changes
-        try {
-            camera.stopPreview();
-        } catch (Exception e){
-            // ignore: tried to stop a non-existent preview
-        }
-
-        // set preview size and make any resize, rotate or
-        // reformatting changes here
-
-        // start preview with new settings
-        try {
-            camera.setPreviewDisplay(holder);
-            camera.startPreview();
-
-        } catch (Exception e){
-            Log.d(CAMERA_TAG, "Error starting camera preview: " + e.getMessage());
-        }
-    }
-
-    private void startRecording(){
-        camera.unlock();
-
-        recorder.setCamera(camera);
-        recorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);
-        recorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
-
-        recorder.setProfile(CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH));
-        recorder.setOutputFile(FILE_OUTPUT);
-
-        recorder.setPreviewDisplay(holder.getSurface());
-
-        try {
-            recorder.prepare();
-            recorder.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-            AlertDialogHelper.showAlertView(getActivity(),e.toString());
-            return;
-        }
-
-    }
-
-    private void stopRecording(){
-        recorder.stop();
-        recorder.reset();
-        recorder.release();
-        camera.lock();
+        return true;
     }
 
 
