@@ -30,14 +30,6 @@
                 android:value="pigareva_10moa.lab45.StartActivity" />
         </activity>
         <activity
-            android:name=".JSONActivity"
-            android:label="@string/title_activity_json"
-            android:parentActivityName=".StartActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="pigareva_10moa.lab45.StartActivity" />
-        </activity>
-        <activity
             android:name=".CSVActivity"
             android:label="@string/title_activity_csv"
             android:parentActivityName=".StartActivity" >

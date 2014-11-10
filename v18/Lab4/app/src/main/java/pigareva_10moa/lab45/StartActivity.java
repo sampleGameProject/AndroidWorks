@@ -17,7 +17,6 @@ public class StartActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_start);
 
         ((Button)findViewById(R.id.buttonShowPreferences)).setOnClickListener(this);
-        ((Button)findViewById(R.id.buttonOpenJSON)).setOnClickListener(this);
         ((Button)findViewById(R.id.buttonOpenCSV)).setOnClickListener(this);
         ((Button)findViewById(R.id.buttonPoster)).setOnClickListener(this);
     }
@@ -49,9 +48,6 @@ public class StartActivity extends Activity implements View.OnClickListener {
         switch (view.getId()){
             case R.id.buttonShowPreferences:
                 startActivity(new Intent(this,ShaderPreferencesActivity.class));
-                break;
-            case R.id.buttonOpenJSON:
-                startActivity(new Intent(this,JSONActivity.class));
                 break;
             case R.id.buttonOpenCSV:
                 startActivity(new Intent(this,CSVActivity.class));

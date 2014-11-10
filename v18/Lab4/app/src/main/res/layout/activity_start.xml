@@ -15,14 +15,6 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/json_show_title"
-        android:id="@+id/buttonOpenJSON"
-        android:layout_marginBottom="45dp"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="@string/button_csv_title"
         android:id="@+id/buttonOpenCSV"
         android:layout_centerVertical="true"
