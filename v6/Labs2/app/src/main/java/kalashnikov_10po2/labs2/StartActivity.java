@@ -3,10 +3,15 @@ package kalashnikov_10po2.labs2;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class StartActivity extends BaseActivity {
@@ -16,29 +21,37 @@ public class StartActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        Button start1 = (Button) findViewById(R.id.button_start1);
-        start1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startInterfaceActivity(true);
-            }
-        });
 
         Button start2 = (Button) findViewById(R.id.button_start2);
         start2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startInterfaceActivity(false);
+                startInterfaceActivity();
+            }
+        });
+
+        findViewById(R.id.textView3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LayoutInflater inflater = getLayoutInflater();
+                View layout = inflater.inflate(R.layout.toast_layout,
+                        (ViewGroup) findViewById(R.id.toast_layout_root));
+
+                TextView text = (TextView) layout.findViewById(R.id.text);
+
+                text.setText(getString(R.string.Toast));
+
+                Toast toast = new Toast(getApplicationContext());
+                toast.setGravity(Gravity.BOTTOM, 0, 0);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
             }
         });
     }
 
-    private void startInterfaceActivity(boolean useXML){
-        Intent intent = new Intent(this,MainActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putBoolean(MainActivity.FragmentFactory.USE_XML,useXML);
-        intent.putExtras(bundle);
-        startActivity(intent);
+    private void startInterfaceActivity(){
+        startActivity(new Intent(this,MainActivity.class));
     }
 
 

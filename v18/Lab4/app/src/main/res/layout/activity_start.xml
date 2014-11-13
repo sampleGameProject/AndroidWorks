@@ -6,14 +6,13 @@
     android:orientation="vertical">
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/show_shared_preferences"
-        android:id="@+id/buttonShowPreferences"
-        android:layout_marginBottom="37dp" />
+        android:id="@+id/buttonShowPreferences" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/button_csv_title"
         android:id="@+id/buttonOpenCSV"
@@ -21,11 +20,10 @@
         />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/poster_title"
         android:id="@+id/buttonPoster"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="139dp" />
+        android:layout_alignParentBottom="true" />
 
 </LinearLayout>

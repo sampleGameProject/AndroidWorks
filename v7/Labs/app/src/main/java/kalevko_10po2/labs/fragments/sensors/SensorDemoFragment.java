@@ -1,5 +1,6 @@
 package kalevko_10po2.labs.fragments.sensors;
 
+import android.app.Service;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -99,6 +100,7 @@ public class SensorDemoFragment extends Fragment implements SensorEventListener{
         currentRate = sensorDelay;
         sensorManager.unregisterListener(this);
         sensorManager.registerListener(this, sensor, currentRate);
+
     }
 
     @Override

@@ -1,10 +1,12 @@
 package kalevko_10po2.labs.fragments;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.hardware.Camera;
 import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
@@ -26,6 +28,8 @@ public class CameraFragment extends Fragment {
     private MediaRecorder mMediaRecorder;
     private boolean isRecording = false;
 
+
+
     public CameraFragment() {
         // Required empty public constructor
     }
@@ -34,7 +38,7 @@ public class CameraFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        final Vibrator vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
         View view = inflater.inflate(R.layout.fragment_camera, container, false);
         mCamera = getCameraInstance();
         mPreview = new CameraPreview(getActivity(), mCamera);
@@ -45,6 +49,9 @@ public class CameraFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+                        vibrator.vibrate(500);
+
                         if (isRecording) {
 
                             mMediaRecorder.stop();
@@ -108,14 +115,19 @@ public class CameraFragment extends Fragment {
 
     private boolean prepareVideoRecorder(){
 
-        mCamera = getCameraInstance();
+        if(mCamera == null)
+        {
+            Log.e("CAMERA_TAG","mCamera is null");
+            return false;
+        }
+
         mMediaRecorder = new MediaRecorder();
         mCamera.unlock();
         mMediaRecorder.setCamera(mCamera);
         mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);
         mMediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
         mMediaRecorder.setProfile(CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH));
-        mMediaRecorder.setOutputFile("TEST_FILE");
+        mMediaRecorder.setOutputFile("/sdcard/videocapture_example.mp4");
         mMediaRecorder.setPreviewDisplay(mPreview.getHolder().getSurface());
 
         try {

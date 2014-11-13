@@ -25,8 +25,7 @@
     <string name="radio3">New3</string>
     <string name="radio2">New2</string>
     <string name="radio1">New1</string>
-    <string name="toast1">Demonstration with xml resources</string>
-    <string name="toast2">Demonstration with programmatically interface</string>
+    <string name="Toast">Toast</string>
     <color name="color">#ff13bea0</color>
 
 </resources>
