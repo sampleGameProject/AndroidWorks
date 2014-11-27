@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Labs</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_compass">CompassActivity</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title1">Частота обновления датчиков</string>
+    <string name="rad1">Slow</string>
+    <string name="rad2">Normal</string>
+    <string name="rad3">Fast</string>
+    <string name="rad4">Real time</string>
+    <string name="title_activity_gyroscope">GyroscopeActivity</string>
+    <string name="title_activity_sensors">SensorsActivity</string>
+    <string name="title_activity_camera">CameraActivity</string>
+    <string name="title_activity_sound">SoundActivity</string>
+
+</resources>
